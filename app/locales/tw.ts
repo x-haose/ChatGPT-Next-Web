@@ -109,6 +109,11 @@ const tw: LocaleType = {
       SubTitle: "使用自己的 Key 可規避授權訪問限制",
       Placeholder: "OpenAI API Key",
     },
+    ProxyUrl: {
+      Title: "Proxy Url",
+      SubTitle: "openai 代理地址",
+      Placeholder: "proxy url",
+    },
     Usage: {
       Title: "帳戶餘額",
       SubTitle(used: any, total: any) {

@@ -112,6 +112,11 @@ const en: LocaleType = {
       SubTitle: "Use your key to ignore access code limit",
       Placeholder: "OpenAI API Key",
     },
+    ProxyUrl: {
+      Title: "Proxy Url",
+      SubTitle: "openai Proxy Url",
+      Placeholder: "proxy url",
+    },
     Usage: {
       Title: "Account Balance",
       SubTitle(used: any, total: any) {
