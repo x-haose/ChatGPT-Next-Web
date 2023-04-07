@@ -393,6 +393,20 @@ export function Settings(props: { closeSettings: () => void }) {
           </SettingItem>
 
           <SettingItem
+            title={Locale.Settings.ProxyUrl.Title}
+            subTitle={Locale.Settings.ProxyUrl.SubTitle}
+          >
+            <PasswordInput
+              value={accessStore.proxyUrl}
+              type="text"
+              placeholder={Locale.Settings.ProxyUrl.Placeholder}
+              onChange={(e) => {
+                accessStore.updateProxyUrl(e.currentTarget.value);
+              }}
+            />
+          </SettingItem>
+
+          <SettingItem
             title={Locale.Settings.Usage.Title}
             subTitle={
               showUsage

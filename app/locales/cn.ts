@@ -109,6 +109,11 @@ const cn = {
       SubTitle: "使用自己的 Key 可绕过密码访问限制",
       Placeholder: "OpenAI API Key",
     },
+    ProxyUrl: {
+      Title: "Proxy Url",
+      SubTitle: "openai 代理地址",
+      Placeholder: "proxy url",
+    },
     Usage: {
       Title: "余额查询",
       SubTitle(used: any, total: any) {

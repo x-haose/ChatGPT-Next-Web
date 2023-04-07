@@ -3,10 +3,12 @@ import { persist } from "zustand/middleware";
 import { queryMeta } from "../utils";
 
 export interface AccessControlStore {
+  proxyUrl: string;
   accessCode: string;
   token: string;
 
   updateToken: (_: string) => void;
+  updateProxyUrl: (_: string) => void;
   updateCode: (_: string) => void;
   enabledAccessControl: () => boolean;
 }
@@ -18,6 +20,7 @@ export const useAccessStore = create<AccessControlStore>()(
     (set, get) => ({
       token: "",
       accessCode: "",
+      proxyUrl: "",
       enabledAccessControl() {
         return queryMeta("access") === "enabled";
       },
@@ -27,10 +30,13 @@ export const useAccessStore = create<AccessControlStore>()(
       updateToken(token: string) {
         set((state) => ({ token }));
       },
+      updateProxyUrl(proxyUrl) {
+        set((state) => ({ proxyUrl }));
+      },
     }),
     {
       name: ACCESS_KEY,
       version: 1,
-    }
-  )
+    },
+  ),
 );
