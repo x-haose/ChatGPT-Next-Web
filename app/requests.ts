@@ -1,8 +1,15 @@
-import type { ChatRequest, ChatReponse } from "./api/openai/typing";
 import { Message, ModelConfig, useAccessStore, useChatStore } from "./store";
 import { showToast } from "./components/ui-lib";
 
 const TIME_OUT_MS = 30000;
+
+import type {
+  CreateChatCompletionRequest,
+  CreateChatCompletionResponse,
+} from "openai";
+
+export type ChatRequest = CreateChatCompletionRequest;
+export type ChatReponse = CreateChatCompletionResponse;
 
 const makeRequestParam = (
   messages: Message[],
@@ -10,7 +17,7 @@ const makeRequestParam = (
     filterBot?: boolean;
     stream?: boolean;
   },
-): ChatRequest => {
+) => {
   let sendMessages = messages.map((v) => ({
     role: v.role,
     content: v.content,
@@ -20,12 +27,9 @@ const makeRequestParam = (
     sendMessages = sendMessages.filter((m) => m.role !== "assistant");
   }
 
-  const modelConfig = useChatStore.getState().config.modelConfig;
-
   return {
     messages: sendMessages,
-    stream: options?.stream,
-    ...modelConfig,
+    line_name: "LINE_2",
   };
 };
 
@@ -61,7 +65,7 @@ export function requestOpenaiClient(path: string) {
 }
 
 export async function requestChat(messages: Message[]) {
-  const req: ChatRequest = makeRequestParam(messages, { filterBot: true });
+  const req = makeRequestParam(messages, { filterBot: true });
 
   const res = await requestOpenaiClient("v1/chat/completions")(req);
 
@@ -140,11 +144,10 @@ export async function requestChatStream(
   const reqTimeoutId = setTimeout(() => controller.abort(), TIME_OUT_MS);
 
   try {
-    const res = await fetch("/api/chat-stream", {
+    const res = await fetch("http://127.0.0.1:5798/api/free_chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        ...getHeaders(),
       },
       body: JSON.stringify(req),
       signal: controller.signal,
